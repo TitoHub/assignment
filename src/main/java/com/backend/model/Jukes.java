@@ -22,4 +22,11 @@ public class Jukes {
     public String model;
     public Component[] components;
 
+    public Jukes(String id, String model, Component[] components) {
+        this.id = id;
+        this.model = model;
+        this.components = components;
+    }
+
+    
 }

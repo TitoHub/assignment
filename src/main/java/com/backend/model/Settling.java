@@ -6,6 +6,7 @@
 package com.backend.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -16,7 +17,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class Settling {
-      public String id;
-        public String[] requires;
+    public String id;
+    public String[] requires;
+
+    public Settling(String id, String[] requires) {
+        this.id = id;
+        this.requires = requires;
+    }  
 }
