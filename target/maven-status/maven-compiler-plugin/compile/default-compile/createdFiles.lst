@@ -1,7 +1,0 @@
-com\backend\model\Settling.class
-com\backend\model\Jukes.class
-com\backend\model\Settings.class
-com\backend\controller\JukeController.class
-com\backend\Assignment.class
-com\backend\model\Component.class
-com\backend\service\JukeService.class
