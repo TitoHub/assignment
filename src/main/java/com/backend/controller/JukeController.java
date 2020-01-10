@@ -10,6 +10,7 @@ import com.backend.service.JukeService;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,7 @@ public class JukeController {
     
     @RequestMapping("/jukeboxes")
     @GetMapping
-    public List<Jukes> getJukes(@RequestParam(value = "settingId") String settingId,
+    public ResponseEntity getJukes(@RequestParam(value = "settingId") String settingId,
                         @RequestParam(value = "model", required = false) String model, 
                         @RequestParam(value = "offset", required = false) Integer offset, 
                         @RequestParam(value = "limit", required = false) Integer limit) throws IOException {

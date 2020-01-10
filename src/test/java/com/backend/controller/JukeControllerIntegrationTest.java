@@ -6,6 +6,7 @@
 package com.backend.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,6 +37,7 @@ public class JukeControllerIntegrationTest {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:" + localServerPort + "/jukeboxes"+"?settingId="+settingId, String.class);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody());
 
     }
     
@@ -45,5 +47,18 @@ public class JukeControllerIntegrationTest {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:" + localServerPort + "/jukeboxes", String.class);
 
         assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+    }
+    
+    @Test
+    public void when_test_return_paginated_jokeboxes_with_required_parameter_and_invalid_offset(){
+        String settingId = "b43f247a-8478-4f24-8e28-792fcfe539f5";
+        
+        ResponseEntity<String> responseEntity = 
+                restTemplate.getForEntity("http://localhost:" + localServerPort + "/jukeboxes"+"?settingId="+settingId+"&offset="+-1, String.class);
+
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody());
+        assertEquals("neither offset nor limit should be a negative number", responseEntity.getBody());
+
     }
 }

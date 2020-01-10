@@ -21,6 +21,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 /**
  *
@@ -68,34 +70,15 @@ public class JukeServiceUnitTest {
         
         when(jukeService.getjukes()).thenReturn(juke);
         
-         List<Jukes> jukeboxes = jukeService.getJukeboxes(settingId, model, null, null);
+         ResponseEntity jukeboxes = jukeService.getJukeboxes(settingId, model, null, null);
          
-        assertNotNull(jukeboxes);
-        assertEquals(1, jukeboxes.size());
-        assertEquals(juke[0], jukeboxes.get(0));
-    }
-    
-    private Settings getSettings(){
-        Settling[] settling = new Settling[2];
-        settling[0] = new Settling("b43f247a-8478-4f24-8e28-792fcfe539f5", new String[]{"camera","amplifier"});
+        assertNotNull(jukeboxes.getBody());
+        assertEquals(HttpStatus.OK, jukeboxes.getStatusCode());
         
-        Settings settings = new Settings();
-        settings.setSettings(settling);
-        return settings;
+        List<Jukes> name = (List<Jukes>) jukeboxes.getBody();
+        assertNotNull(name);
+        assertEquals(1, name.size());
+        assertEquals(juke[0], name.get(0));
     }
-    
-    private Jukes[] getJukes(){
-        Component[] component = new Component[2];
-        component[0] = new Component("camera");
-        component[1] = new Component("amplifier");
-        
-        Component[] component1 = new Component[2];
-        component1[0] = new Component("speaker");
-        component1[1] = new Component("touchscreen");
-        
-        Jukes[] juke = new Jukes[]{};
-        juke[0] = new Jukes("5ca94a8ab592da6c6f2d562e", "fusion", component);
-        juke[1] = new Jukes("5ca94a8ab592da6c6f2d562e", "fusion", component1);
-        return juke;
-    }
+
 }
